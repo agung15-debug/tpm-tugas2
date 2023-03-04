@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 
 class SecondScreen extends StatelessWidget {
@@ -17,6 +18,7 @@ class _NavigationState extends State<Navigation> {
   int currentPageIndex = 0;
   TextEditingController controller1 = TextEditingController();
   TextEditingController controller2 = TextEditingController();
+  NumberFormat myFormat = NumberFormat.decimalPattern('en_us');
   int? hasil = 0, angka1, angka2;
   tambah() {
     setState(() {
@@ -76,7 +78,7 @@ class _NavigationState extends State<Navigation> {
           child: Padding(
             padding: const EdgeInsets.only(top: 50, left: 20, right: 20),
             child: Column(children: [
-              Text('Hasil : $hasil',
+              Text('Hasil : ${myFormat.format(hasil)}',
                   style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold)),
               SizedBox(height: 20),
               TextField(
@@ -121,6 +123,7 @@ class _NavigationState extends State<Navigation> {
             ]),
           ),
         ),
+        //------------------------TAB BIODATA---------------------
         Container(
           child: Padding(
             padding: const EdgeInsets.symmetric(vertical: 50),

@@ -9,6 +9,10 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
+  TextEditingController controllerEmail = TextEditingController();
+  TextEditingController controllerPassword = TextEditingController();
+  final snackBar = SnackBar(content: const Text('Login Failed!'));
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -18,6 +22,11 @@ class _LoginScreenState extends State<LoginScreen> {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
+            Image.asset(
+              'assets/images/logo.png',
+              width: 100,
+              height: 100,
+            ),
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: Expanded(
@@ -50,7 +59,10 @@ class _LoginScreenState extends State<LoginScreen> {
                               borderRadius: BorderRadius.circular(12),
                               color: Colors.black,
                             ),
-                            child: const TextField(
+                            //text field for email
+                            child: TextField(
+                              controller: controllerEmail,
+                              keyboardType: TextInputType.emailAddress,
                               style: TextStyle(color: Colors.white),
                               decoration: InputDecoration(
                                 border: InputBorder.none,
@@ -78,7 +90,10 @@ class _LoginScreenState extends State<LoginScreen> {
                               borderRadius: BorderRadius.circular(12),
                               color: Colors.black,
                             ),
-                            child: const TextField(
+                            //text field for password
+                            child: TextField(
+                              controller: controllerPassword,
+                              obscureText: true, //invisible password
                               style: TextStyle(color: Colors.white),
                               decoration: InputDecoration(
                                 border: InputBorder.none,
@@ -91,13 +106,20 @@ class _LoginScreenState extends State<LoginScreen> {
                               ),
                             ),
                           ),
+                          //login button
                           const SizedBox(height: 35),
                           GestureDetector(
                             onTap: () {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => SecondScreen()));
+                              if (controllerEmail.text == 'admin@mail.com' &&
+                                  controllerPassword.text == 'admin') {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => SecondScreen()));
+                              } else {
+                                ScaffoldMessenger.of(context)
+                                    .showSnackBar(snackBar);
+                              }
                             },
                             child: Container(
                               decoration: BoxDecoration(
